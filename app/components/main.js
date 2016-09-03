@@ -77,7 +77,7 @@ export default class Main extends React.Component {
             is_error: false,
             error: '',
         })
-        api.getRepos(this.state.username)
+        api.getUserInfo(this.state.username)
             .then((response) => {
                 if(response.message === 'Not Found'){
                     this.setState({
@@ -96,7 +96,7 @@ export default class Main extends React.Component {
                         title: 'Dashboard',
                         component: Dashboard,
                         passProps: { 
-                            repos: response,
+                            user_info: response,
                             username: this.state.username,
                         }
                     });

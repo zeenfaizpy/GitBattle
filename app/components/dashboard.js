@@ -2,6 +2,7 @@ import React from 'react';
 import {
     View,
     Text,
+    Image,
     StyleSheet,
     TouchableHighlight,
     ActivityIndicator,
@@ -13,11 +14,7 @@ import Followers from './followers'
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 30,
     marginTop: 65,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#48BBEC'
   },
   title: {
     marginBottom: 20,
@@ -51,6 +48,25 @@ var styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  photo: {
+    height: 350,
+  },
+  nameText: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+      justifyContent: 'center',
+      flex: 1,
+      fontSize: 24,
+      backgroundColor: '#758BF4',
+  },
+  companyText: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+      justifyContent: 'center',
+      flex: 1,
+      fontSize: 24,
+      backgroundColor: '#E77AAE',
   },
 });
 
@@ -122,7 +138,12 @@ export default class Dashboard extends React.Component{
         }
         return (
             <View style={styles.mainContainer}>
-                {has_repos()}
+                <Image 
+                    source={{uri: this.props.user_info.avatar_url}}
+                    style={styles.photo} 
+                />
+                <Text style={styles.nameText}>{this.props.user_info.name}</Text>
+                <Text style={styles.companyText}>{this.props.user_info.company}</Text>
                 <TouchableHighlight
                     onPress={this.onPress.bind(this)}
                     style={styles.button}
