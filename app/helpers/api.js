@@ -1,4 +1,4 @@
-function getData(username){
+function getRepos(username){
     var url = `https://api.github.com/users/${username}/repos`
     return (
         fetch(url)
@@ -11,8 +11,22 @@ function getData(username){
     )
 }
 
+function getFollowers(username){
+    var url = `https://api.github.com/users/${username}/followers`
+    return (
+        fetch(url)
+        .then(function(response) {
+            return response.json()
+        })
+        .catch(function(ex) {
+            console.log('parsing failed', ex)
+        })
+    )
+}
+
 var api = {
-    getData: getData
+    getRepos: getRepos,
+    getFollowers: getFollowers,
 }
 
 export default api
