@@ -3,6 +3,8 @@
 ## Installing
 
 ```bash
+$ brew install node  
+$ brew install watchman
 $ npm install
 ```
 
