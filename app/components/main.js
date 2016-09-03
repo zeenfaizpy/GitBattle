@@ -77,7 +77,7 @@ export default class Main extends React.Component {
             is_error: false,
             error: '',
         })
-        api.getData(this.state.username)
+        api.getRepos(this.state.username)
             .then((response) => {
                 if(response.message === 'Not Found'){
                     this.setState({
@@ -88,7 +88,6 @@ export default class Main extends React.Component {
                 }
                 else {
                     this.setState({
-                        username: '',
                         is_loading: false,
                         is_error: false,
                         error: '',
@@ -96,7 +95,10 @@ export default class Main extends React.Component {
                     this.props.navigator.push({
                         title: 'Dashboard',
                         component: Dashboard,
-                        passProps: { user_data: response }
+                        passProps: { 
+                            repos: response,
+                            username: this.state.username,
+                        }
                     });
                     
                 }
