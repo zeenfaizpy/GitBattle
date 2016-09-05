@@ -8,6 +8,8 @@ import {
     TouchableHighlight,
 } from 'react-native';
 
+import Web from './web'
+
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -37,12 +39,27 @@ class Follower extends React.Component{
     constructor(props){
         super(props)
     }
+    onPress(){
+        this.props.navigator.push({
+            title: 'Web View',
+            component: Web,
+            passProps: { 
+                url: this.props.data.html_url
+            }
+        });
+    }
     render(){
         return (
-            <View style={styles.rowContainer}>
-                <Image source={{uri: this.props.data.avatar_url}}
-                       style={styles.photo} />
-                <Text style={styles.text}>{this.props.data.login}</Text>
+            <View>
+                <TouchableHighlight
+                    onPress={this.onPress.bind(this)}
+                    underlayColor='white'>
+                        <View style={styles.rowContainer}>
+                            <Image source={{uri: this.props.data.avatar_url}}
+                                   style={styles.photo} />
+                            <Text style={styles.text}>{this.props.data.login}</Text>
+                        </View>
+                </TouchableHighlight>
             </View>
         )
     }
@@ -59,7 +76,7 @@ export default class Followers extends React.Component{
     }
     renderRow(data){
         return (
-            <Follower data={data} />
+            <Follower data={data} navigator={this.props.navigator} />
         )
     }
     renderSeparator(sectionId, rowId, adjacentRowHighlighted){
@@ -72,8 +89,8 @@ export default class Followers extends React.Component{
             <ListView
                 style={styles.mainContainer}
                 dataSource={this.state.dataSource}
-                renderRow={this.renderRow}
-                renderSeparator={this.renderSeparator}>
+                renderRow={this.renderRow.bind(this)}
+                renderSeparator={this.renderSeparator.bind(this)}>
             </ListView>
         )
     }
